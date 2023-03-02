@@ -1,5 +1,8 @@
 Adds a link context menu quickly copy a link text, a link text with url and also allows copying the url with and without parameters.
 
+![snip_20230302-093109](https://user-images.githubusercontent.com/67047467/222374031-e8eba11d-adea-4661-8388-32880e130f42.png)
+
+
 <b>Usage</b>
 <ol>
 	<li>right click on a link</li>
