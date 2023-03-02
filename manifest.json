@@ -1,0 +1,18 @@
+{
+  "author": "igorlogius",
+  "browser_action": {
+  },
+  "background": {
+	"scripts": ["background.js"]
+  },
+  "icons": {
+  },
+  "manifest_version": 2,
+  "name": "Copy Link Extras",
+  "permissions": [
+    "menus",
+    "clipboardWrite",
+    "activeTab"
+  ],
+  "version": "1.0.0"
+}
