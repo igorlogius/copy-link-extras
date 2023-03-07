@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"></meta>
+    </head>
+    <body style="background: lightgray">
+        <form id="mainForm" accept-charset="utf-8">
+		<p><b>Customize Extras:</b> Set context menu entries</p>
+            <input type="submit" value="Save changes" />
+            <input id="impbtn_wrapper" type="button" name="impbtn" value="Import Rules" />
+            <input id="impbtn" type="file" name="impbtn" value="" style="display:none" />
+            <input id="expbtn" type="button" name="impbtn" value="Export Rules" />
+            <p></p>
+            <table id="mainTable" border=1 style="width:100%;" >
+                <thead>
+                    <th style="width:30%">Name</th>
+		    <th>Format <abbr title="%url, %url_proto, %url_host, %url_port, %url_path, %url_params, %url_origin, %text">(placeholders?)</abbr></th>
+                    <th style="width:0px">Action</th>
+                </thead>
+                <tbody id='mainTableBody' />
+            </table>
+        </form>
+        <script src="options.js"></script>
+    </body>
+</html>
