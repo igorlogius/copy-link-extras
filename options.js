@@ -27,7 +27,7 @@ function onChange(evt) {
 
   obj[id] = value;
 
-  console.debug(id, value);
+  //console.debug(id, value);
   browser.storage.local.set(obj).catch(console.error);
 }
 
@@ -117,7 +117,7 @@ function collectConfig() {
         .querySelector(".format")
         .value.trim();
       if (name !== "" && format !== "") {
-        console.debug(name, format);
+        //console.debug(name, format);
         feeds.push({
           name,
           format,
@@ -166,7 +166,7 @@ async function restoreOptions() {
     return;
   }
   res.selectors.forEach((selector) => {
-    console.debug(selector);
+    //console.debug(selector);
     selector.action = "delete";
     createTableRow(selector);
   });
