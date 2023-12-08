@@ -13,33 +13,70 @@ async function onStorageChange() {
   for (const row of tmp) {
     browser.menus.create({
       title: row.name,
-      contexts: ["link"],
-      onclick: (info) => {
-        const fmtStr = row.format;
-        let tmp2 = fmtStr;
+      contexts: ["link", "selection"],
+      onclick: async (info) => {
+        //-- handle text selection
 
-        const replacers = new Map();
+        let links = [];
 
-        const url = new URL(info.linkUrl);
+        if (info.selectionText) {
+          const ret = await browser.tabs.executeScript({
+            code: `
+          selection = getSelection();
+             [...document.links]
+          .filter((anchor) => selection.containsNode(anchor, true))
+        .map((link) => ({
+            text: link.innerText.trim().replace(/\s+/gu, " "),
+            url: link.href,
+        }));
 
-        replacers.set("url_proto", url.protocol);
-        replacers.set("url_host", url.hostname);
-        replacers.set("url_port", url.port);
-        replacers.set("url_path", url.pathname);
-        replacers.set("url_params", url.search);
-        replacers.set("url_origin", url.origin);
-        replacers.set("url", url.href);
-        replacers.set("text", info.linkText);
 
-        for (const [k, v] of replacers) {
-          tmp2 = tmp2.replaceAll("%" + k, v);
+          `,
+          });
+
+          //console.debug('ret', ret[0]);
+
+          links = ret[0];
+        } else {
+          //-- handle link selection
+
+          links.push({ text: info.linkText, url: info.linkUrl });
+        }
+
+        let tmp3 = "";
+        let tmp4 = "";
+
+        for (const link of links) {
+          const fmtStr = row.format;
+          let tmp2 = fmtStr;
+
+          const replacers = new Map();
+
+          const url = new URL(link.url);
+
+          replacers.set("url_proto", url.protocol);
+          replacers.set("url_host", url.hostname);
+          replacers.set("url_port", url.port);
+          replacers.set("url_path", url.pathname);
+          replacers.set("url_params", url.search);
+          replacers.set("url_origin", url.origin);
+          replacers.set("url", url.href);
+          replacers.set("text", link.text);
+
+          for (const [k, v] of replacers) {
+            tmp2 = tmp2.replaceAll("%" + k, v);
+          }
+          tmp3 = tmp3 + tmp2 + "\n";
+          tmp4 = tmp4 + tmp2 + "<br/>";
+
+          //console.debug('tmp3', tmp3);
         }
 
         if (row.name.toLowerCase().includes("html")) {
           let div = document.createElement("div");
           div.style.position = "absolute";
           div.style.bottom = "-9999999"; // move it offscreen
-          div.innerHTML = tmp2;
+          div.innerHTML = tmp4;
           document.body.append(div);
 
           div.focus();
@@ -50,7 +87,7 @@ async function onStorageChange() {
           document.execCommand("copy");
           div.remove();
         } else {
-          navigator.clipboard.writeText(tmp2);
+          navigator.clipboard.writeText(tmp3);
         }
       },
     });
