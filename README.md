@@ -1,6 +1,6 @@
 Adds a link context menu quickly copy a link text, a link text with url and also allows copying the url with and without parameters.
 
-
+<b>Short Demo Video:</b>
 
 https://github.com/igorlogius/copy-link-extras/assets/67047467/dc86233a-63e8-4463-97cf-0ab572cdbb8e
 
