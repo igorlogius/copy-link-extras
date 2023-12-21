@@ -26,7 +26,7 @@ async function onStorageChange() {
              [...document.links]
           .filter((anchor) => selection.containsNode(anchor, true))
         .map((link) => ({
-            text: link.innerText.trim().replace(/\s+/gu, " "),
+            text: link.innerText,
             url: link.href,
         }));
 
