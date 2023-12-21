@@ -1,18 +1,16 @@
-Adds a link context menu quickly copy a link text, a link text with url and also allows copying the url with and without parameters.
+Add extra copy functions to links. Works with single or muliple links in a selection. 
 
 <b>Short Demo Video:</b>
 
 https://github.com/igorlogius/copy-link-extras/assets/67047467/dc86233a-63e8-4463-97cf-0ab572cdbb8e
 
 
-
 <b>Usage</b>
 <ol>
-	<li>right click on a link</li>
-	<li>in the context menu hover over the "Copy Link Extras" and click on one of the submenu entries</li>
-	<li>now the content is in the clipboard and can be pasted</li>
+	<li>right click on a link or some previously selected text which contains multiple links</li>
+	<li>in the right click context menu use the "Copy Link Extras" entry and select the copy method you want to use</li>
+        <li>Hint: you can add or modify existing methods on the addons preferences page</li>
 </ol>
-
 <b>Notes:</b>
 <ol>
     <li><b>Permissions:</b>
@@ -31,4 +29,3 @@ https://github.com/igorlogius/copy-link-extras/assets/67047467/dc86233a-63e8-446
         If you have any issues (for example a site it does not work but you think it should) or have improvement suggestions or a feature request please open an issue at the Support Site
     </li>
 </ol>
-
