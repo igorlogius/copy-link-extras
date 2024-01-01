@@ -8,9 +8,11 @@ function onChange(evt) {
   let obj = {};
 
   //console.log(id,value, el.type,el.min);
+  /*
   if (value === "") {
     return;
   }
+*/
   if (el.type === "number") {
     try {
       value = parseInt(value);
@@ -33,6 +35,7 @@ function onChange(evt) {
 
 [
   /* add individual settings here */
+  "seperator",
 ].map((id) => {
   browser.storage.local
     .get(id)
@@ -47,7 +50,7 @@ function onChange(evt) {
           el.value = val;
         }
       } else {
-        el.value = 0;
+        el.value = "";
       }
     })
     .catch(console.error);

@@ -4,9 +4,13 @@ async function getFromStorage(type, id, fallback) {
   let tmp = await browser.storage.local.get(id);
   return typeof tmp[id] === type ? tmp[id] : fallback;
 }
+const nl = "\n";
 
 async function onStorageChange() {
   let tmp = await getFromStorage("object", "selectors", []);
+  let seperator = await getFromStorage("string", "seperator", "");
+
+  //console.debug('seperator', "'" + seperator +"'");
 
   await browser.menus.removeAll();
 
@@ -66,11 +70,15 @@ async function onStorageChange() {
           for (const [k, v] of replacers) {
             tmp2 = tmp2.replaceAll("%" + k, v);
           }
-          tmp3 = tmp3 + tmp2 + "\n";
-          tmp4 = tmp4 + tmp2 + "<br/>";
+
+          tmp3 = tmp3 + tmp2 + (seperator === "" ? "\n" : seperator);
+          tmp4 = tmp4 + tmp2 + (seperator === "" ? "<br/>" : seperator);
 
           //console.debug('tmp3', tmp3);
         }
+
+        tmp3 = tmp3.replaceAll("%nl", nl);
+        tmp4 = tmp4.replaceAll("%nl", "<br/>");
 
         if (row.name.toLowerCase().includes("html")) {
           let div = document.createElement("div");
