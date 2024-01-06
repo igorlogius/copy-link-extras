@@ -1,18 +1,22 @@
-Add extra copy functions to links. Works with single or muliple links in a selection. 
+Add extra copy functions to links and selections. Works with single or muliple links or selections.
 
 <b>Short Demo Video:</b>
 
 https://github.com/igorlogius/copy-link-extras/assets/67047467/dc86233a-63e8-4463-97cf-0ab572cdbb8e
 
-
-<b>Usage</b>
+<b>Usage/Features</b>
 <ol>
-	<li>right click on a link or some previously selected text which contains multiple links</li>
-	<li>in the right click context menu use the "Copy Link Extras" entry and select the copy method you want to use</li>
-        <li>Hint: you can add or modify existing methods on the addons preferences page</li>
+  <li>right click on a link or some previously selected text which contains links</li>
+  <li>in the right click context menu use the "Copy Link Extras" entry and select the copy method you want to use</li>
+  <li>add or modify existing copy methods on the preferences page</li>
 </ol>
+
 <b>Notes:</b>
 <ol>
+    <li><b>Can/Should  i trust this addon?</b>
+        You can view the source code by either visiting the Homepage/Support Site or just saving/downloading the XPI (which is really just a ZIP Archive) and then extract it locally. The Sources in the XPI should be unofuscated and unminified (HTML,CSS and JS), so it's as easy to read as possible. Alternatives you can also use the <a href="https://addons.mozilla.org/en-US/firefox/addon/crxviewer/">CRX Viewer Extension by Rob W</a> to inspect the XPI sources. If you have an questions, you can also open an issue on the support site and i'll try and answer to the best of my abilities.
+        If you are no programmer and are still feeling unsure, you might want to visit one of the official or unoffical mozilla communities and ask if someone there with more knowlege can take a look. Examples: https://reddit.com/r/firefox , https://lemmy.world/c/firefox or https://chat.mozilla.org/#/room/#addons:mozilla.org
+    </li>
     <li><b>Permissions:</b>
         This add-on tries to use the minimal number of required permissions to successfully fullfill its intended purpose.
         If you think this could be improved please let me know by opening an issue and i will try to look into it.
@@ -29,3 +33,4 @@ https://github.com/igorlogius/copy-link-extras/assets/67047467/dc86233a-63e8-446
         If you have any issues (for example a site it does not work but you think it should) or have improvement suggestions or a feature request please open an issue at the Support Site
     </li>
 </ol>
+
