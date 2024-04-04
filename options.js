@@ -74,7 +74,14 @@ function createTableRow(feed) {
     .reverse()
     .forEach((key) => {
       let input;
-      if (key === "name" /*|| key === 'default'*/) {
+      if (key === "html" /*|| key === 'default'*/) {
+        input = document.createElement("input");
+        input.className = key;
+        input.placeholder = key;
+        input.type = "checkbox";
+        input.checked = feed[key];
+        tr.insertCell().appendChild(input);
+      } else if (key === "name" /*|| key === 'default'*/) {
         input = document.createElement("input");
         input.className = key;
         input.placeholder = key;
@@ -115,6 +122,7 @@ function collectConfig() {
   let feeds = [];
   for (let row = 0; row < mainTableBody.rows.length; row++) {
     try {
+      let html = mainTableBody.rows[row].querySelector(".html").checked;
       let name = mainTableBody.rows[row].querySelector(".name").value.trim();
       let format = mainTableBody.rows[row]
         .querySelector(".format")
@@ -122,6 +130,7 @@ function collectConfig() {
       if (name !== "" && format !== "") {
         //console.debug(name, format);
         feeds.push({
+          html,
           name,
           format,
         });
@@ -160,6 +169,7 @@ async function saveOptions() {
 
 async function restoreOptions() {
   createTableRow({
+    html: false,
     name: "",
     format: "",
     action: "add",
@@ -171,6 +181,9 @@ async function restoreOptions() {
   res.selectors.forEach((selector) => {
     //console.debug(selector);
     selector.action = "delete";
+    if (typeof selector.html === "undefined") {
+      selector.html = false;
+    }
     createTableRow(selector);
   });
 }

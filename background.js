@@ -80,7 +80,7 @@ async function onStorageChange() {
         tmp3 = tmp3.replaceAll("%nl", nl);
         tmp4 = tmp4.replaceAll("%nl", "<br/>");
 
-        if (row.name.toLowerCase().includes("html")) {
+        if (row.html === true) {
           let div = document.createElement("div");
           div.style.position = "absolute";
           div.style.bottom = "-9999999"; // move it offscreen
@@ -111,13 +111,17 @@ async function setToStorage(id, value) {
 async function handleInstalled(details) {
   if (details.reason === "install") {
     await setToStorage("selectors", [
-      { name: "Text", format: "%text" },
-      { name: "URL", format: "%url" },
-      { name: "URL - Params", format: "%url_origin%url_params" },
-      { name: "Text + URL", format: "%text + %url" },
-      { name: "Text + URL - Params", format: "%text + %url_origin%url_params" },
-      { name: "Markdown", format: "[%text](%url)" },
-      { name: "HTML", format: '<a href="%url">%text</a>' },
+      { html: false, name: "Text", format: "%text" },
+      { html: false, name: "URL", format: "%url" },
+      { html: false, name: "URL - Params", format: "%url_origin%url_params" },
+      { html: false, name: "Text + URL", format: "%text + %url" },
+      {
+        html: false,
+        name: "Text + URL - Params",
+        format: "%text + %url_origin%url_params",
+      },
+      { html: false, name: "Markdown", format: "[%text](%url)" },
+      { html: true, name: "HTML", format: '<a href="%url">%text</a>' },
     ]);
     browser.runtime.openOptionsPage();
   }
