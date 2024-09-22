@@ -133,3 +133,85 @@ async function handleInstalled(details) {
 
 browser.runtime.onInstalled.addListener(handleInstalled);
 browser.storage.onChanged.addListener(onStorageChange);
+
+async function onCommand(cmd) {
+  const anr = parseInt(cmd.split("_")[1]);
+
+  let tmp = await getFromStorage("object", "selectors", []);
+  let seperator = await getFromStorage("string", "seperator", "");
+
+  const row = tmp[anr];
+
+  //-- handle text selection
+
+  const ret = await browser.tabs.executeScript({
+    code: `
+          selection = getSelection();
+             [...document.links]
+          .filter((anchor) => selection.containsNode(anchor, true))
+        .map((link) => ({
+            text: link.innerText,
+            url: link.href,
+        }));
+
+
+          `,
+  });
+
+  //console.debug('ret', ret[0]);
+
+  let links = ret[0];
+
+  let tmp3 = "";
+  let tmp4 = "";
+
+  for (const link of links) {
+    const fmtStr = row.format;
+    let tmp2 = fmtStr;
+
+    const replacers = new Map();
+
+    const url = new URL(link.url);
+
+    replacers.set("url_proto", url.protocol);
+    replacers.set("url_host", url.hostname);
+    replacers.set("url_port", url.port);
+    replacers.set("url_path", url.pathname);
+    replacers.set("url_params", url.search);
+    replacers.set("url_origin", url.origin);
+    replacers.set("url", url.href);
+    replacers.set("text", link.text);
+
+    for (const [k, v] of replacers) {
+      tmp2 = tmp2.replaceAll("%" + k, v);
+    }
+
+    tmp3 = tmp3 + tmp2 + (seperator === "" ? "\n" : seperator);
+    tmp4 = tmp4 + tmp2 + (seperator === "" ? "<br/>" : seperator);
+
+    //console.debug('tmp3', tmp3);
+  }
+
+  tmp3 = tmp3.replaceAll("%nl", nl);
+  tmp4 = tmp4.replaceAll("%nl", "<br/>");
+
+  if (row.html === true) {
+    let div = document.createElement("div");
+    div.style.position = "absolute";
+    div.style.bottom = "-9999999"; // move it offscreen
+    div.innerHTML = tmp4;
+    document.body.append(div);
+
+    div.focus();
+    document.getSelection().removeAllRanges();
+    var range = document.createRange();
+    range.selectNode(div);
+    document.getSelection().addRange(range);
+    document.execCommand("copy");
+    div.remove();
+  } else {
+    navigator.clipboard.writeText(tmp3);
+  }
+}
+
+browser.commands.onCommand.addListener(onCommand);
