@@ -6,19 +6,34 @@
   },
   "commands": {
     "action_0": {
-      "description": "Trigger 1st copy action on selection"
+      "description": "1st action on hovered link or selection"
     },
     "action_1": {
-      "description": "Trigger 2nd copy action on selection"
+      "description": "2nd action on hovered link or selection"
     },
     "action_2": {
-      "description": "Trigger 3rd copy action on selection"
+      "description": "3rd action on hovered link or selection"
     },
     "action_3": {
-      "description": "Trigger 4th copy action on selection"
+      "description": "4th action on hovered link or selection"
     },
     "action_4": {
-      "description": "Trigger 5th copy action on selection"
+      "description": "5th action on hovered link or selection"
+    },
+    "action_5": {
+      "description": "6th action on hovered link or selection"
+    },
+    "action_6": {
+      "description": "7th action on hovered link or selection"
+    },
+    "action_7": {
+      "description": "8th action on hovered link or selection"
+    },
+    "action_8": {
+      "description": "9th action on hovered link or selection"
+    },
+    "action_9": {
+      "description": "10th action on hovered link or selection"
     }
   },
   "description": "Add extra copy functions to links and selections. Works with single or muliple links or selections",
@@ -31,5 +46,5 @@
     "page": "options.html"
   },
   "permissions": ["storage", "menus", "clipboardWrite", "activeTab"],
-  "version": "1.1.8"
+  "version": "1.2.8"
 }

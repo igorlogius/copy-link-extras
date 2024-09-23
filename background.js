@@ -145,22 +145,27 @@ async function onCommand(cmd) {
   //-- handle text selection
 
   const ret = await browser.tabs.executeScript({
-    code: `
-          selection = getSelection();
-             [...document.links]
-          .filter((anchor) => selection.containsNode(anchor, true))
-        .map((link) => ({
+    code: `(() => {
+        const docLinks = [...document.links];
+        let links = [];
+            links  = docLinks
+            .filter((anchor) => anchor.matches(':hover'));
+        if(links.length === 0){
+            links  = docLinks
+            .filter((anchor) => getSelection().containsNode(anchor, true));
+        }
+        links = links.map((link) => ({
             text: link.innerText,
             url: link.href,
         }));
-
-
+        return links;
+    })();
           `,
   });
 
-  //console.debug('ret', ret[0]);
-
   let links = ret[0];
+
+  //console.debug(links);
 
   let tmp3 = "";
   let tmp4 = "";
